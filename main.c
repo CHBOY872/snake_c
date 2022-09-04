@@ -23,7 +23,7 @@ int main()
         }
         printf("\n");
     }
-    struct move_vector vct = {1, -10};
+    struct move_vector vct = {100, 50};
     move_snake(&sn, &vct, &fld);
     for (y = 0; y < SIZE; y++)
     {

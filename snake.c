@@ -35,3 +35,8 @@ void move_snake(struct snake *sn, struct move_vector *mv, struct field *fld)
     sn->pos.y += mv->y;
     check_out_of_field(sn, fld);
 }
+
+void eat_snake(struct snake *sn) 
+{
+    
+}
