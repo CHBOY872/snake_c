@@ -28,8 +28,7 @@ int main()
         draw_field(&fld, sn, &fod);
         FD_ZERO(&rds);
         FD_SET(0, &rds);
-        struct timeval t;
-        t.tv_sec = 1;
+        struct timeval t = {1, 0};
         int stat = select(2, &rds, NULL, NULL, &t);
 
         if (stat > 0)
