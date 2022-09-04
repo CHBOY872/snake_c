@@ -22,21 +22,31 @@ void init_snake(struct snake *sn)
     sn->next = NULL;
 }
 
-void move_snake(struct snake *sn, struct move_vector *mv, struct field *fld)
+void move_snake(struct snake **sn, struct move_vector *mv, struct field *fld)
 {
-    struct snake *tmp = sn;
-    while (tmp->next)
+    struct snake **p;
+    int tmp_x = (*sn)->pos.x;
+    int tmp_y = (*sn)->pos.y;
+    int tmp2_x, tmp2_y;
+    for (p = sn; (*p)->next; p = &((*p)->next))
     {
-        tmp->next->pos.x = tmp->pos.x;
-        tmp->next->pos.y = tmp->pos.y;
-        tmp = tmp->next;
+        tmp2_x = (*p)->next->pos.x;
+        tmp2_y = (*p)->next->pos.y;
+        (*p)->next->pos.x = tmp_x;
+        (*p)->next->pos.y = tmp_y;
+        tmp_x = tmp2_x;
+        tmp_y = tmp2_y;
     }
-    sn->pos.x += mv->x;
-    sn->pos.y += mv->y;
-    check_out_of_field(sn, fld);
+    (*sn)->pos.x = mv->x;
+    (*sn)->pos.y = mv->y;
+    check_out_of_field(*sn, fld);
 }
 
-void eat_snake(struct snake *sn) 
+void eat_snake(struct snake **sn, struct move_vector *mv)
 {
-    
+    struct snake *tmp = malloc(sizeof(struct snake));
+    tmp->next = *sn;
+    tmp->pos.x = (*sn)->pos.x - mv->x;
+    tmp->pos.y = (*sn)->pos.y - mv->y;
+    *sn = tmp;
 }

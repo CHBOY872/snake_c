@@ -16,7 +16,7 @@ struct food
 };
 
 void init_snake(struct snake *sn);
-void move_snake(struct snake *sn, struct move_vector *mv, struct field *fld);
-void eat_snake(struct snake *sn);
+void move_snake(struct snake **sn, struct move_vector *mv, struct field *fld);
+void eat_snake(struct snake **sn, struct move_vector *mv);
 
 #endif
