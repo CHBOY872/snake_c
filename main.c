@@ -5,8 +5,6 @@
 #include "snake.h"
 
 static struct field fld;
-// static struct snake sn;
-// static struct snake *sn_ptr = &sn;
 
 int main()
 {
