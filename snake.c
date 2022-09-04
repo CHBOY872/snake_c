@@ -37,16 +37,16 @@ void move_snake(struct snake **sn, struct move_vector *mv, struct field *fld)
         tmp_x = tmp2_x;
         tmp_y = tmp2_y;
     }
-    (*sn)->pos.x = mv->x;
-    (*sn)->pos.y = mv->y;
+    (*sn)->pos.x += mv->x;
+    (*sn)->pos.y += mv->y;
     check_out_of_field(*sn, fld);
 }
 
 void eat_snake(struct snake **sn, struct move_vector *mv)
 {
     struct snake *tmp = malloc(sizeof(struct snake));
-    tmp->next = *sn;
+    tmp->next = NULL;
     tmp->pos.x = (*sn)->pos.x - mv->x;
     tmp->pos.y = (*sn)->pos.y - mv->y;
-    *sn = tmp;
+    (*sn)->next = tmp;
 }

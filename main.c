@@ -25,9 +25,10 @@ int main()
         }
         printf("\n");
     }
-    struct move_vector vct = {1, 1};
+    struct move_vector vct = {0, 1};
     move_snake(&sn, &vct, &fld);
     eat_snake(&sn, &vct);
+    move_snake(&sn, &vct, &fld);
     for (y = 0; y < SIZE; y++)
     {
         for (x = 0; x < SIZE; x++)
