@@ -22,6 +22,9 @@ case $1 in
     "build")
         ./build.sh
         ;;
+    "reserve")
+        ./reserve.sh
+        ;;
     *)  
         echo "unknkown comand..."
         exit 2

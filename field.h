@@ -3,6 +3,14 @@
 
 #define SIZE 30
 
-void init_field(int (*field)[SIZE]);
+typedef int (*field)[SIZE];
+
+struct field
+{
+    int field[SIZE][SIZE];
+    int size;
+};
+
+void init_field(struct field *fld);
 
 #endif

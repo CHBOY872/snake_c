@@ -4,22 +4,35 @@
 #include "field.h"
 #include "snake.h"
 
-static int field[SIZE][SIZE];
+static struct field fld;
 static struct snake sn;
 
 int main()
 {
-    init_field(field);
+    init_field(&fld);
     init_snake(&sn);
     int x, y;
     for (y = 0; y < SIZE; y++)
     {
         for (x = 0; x < SIZE; x++)
         {
-            if (x == sn.pos_x && y == sn.pos_y)
+            if (x == sn.pos.x && y == sn.pos.y)
                 printf("* ");
             else
-                printf("0 ", field[y][x]);
+                printf("  ", fld.field[y][x]);
+        }
+        printf("\n");
+    }
+    struct move_vector vct = {1, -10};
+    move_snake(&sn, &vct, &fld);
+    for (y = 0; y < SIZE; y++)
+    {
+        for (x = 0; x < SIZE; x++)
+        {
+            if (x == sn.pos.x && y == sn.pos.y)
+                printf("* ");
+            else
+                printf("  ", fld.field[y][x]);
         }
         printf("\n");
     }
