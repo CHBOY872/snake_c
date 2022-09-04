@@ -6,10 +6,10 @@
 
 enum state
 {
-    is_none,
-    is_snake,
-    is_eat,
-    is_free
+    is_none_state,
+    is_snake_state,
+    is_food_state,
+    is_free_state
 };
 
 struct snake
@@ -30,6 +30,10 @@ void eat_snake(struct snake **sn, struct move_vector *mv, struct food *fod);
 
 void init_food(struct food *fod);
 
-void handle_snake();
+void is_snake(struct snake *sn, enum state *st);
+void is_food(struct snake *sn, struct food *fod, enum state *st);
+
+void handle_snake(struct snake *sn, struct food *fod, enum state *st,
+                  struct move_vector *mv);
 
 #endif

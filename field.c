@@ -8,5 +8,4 @@ void init_field(struct field *fld)
         for (j = 0; j < SIZE; j++)
             fld->field[i][j] = 0;
     }
-    fld->size = SIZE;
 }

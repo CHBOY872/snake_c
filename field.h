@@ -1,14 +1,11 @@
 #ifndef FIELD_H_SENTRY
 #define FIELD_H_SENTRY
 
-#define SIZE 30
-
-typedef int (*field)[SIZE];
+#define SIZE 15
 
 struct field
 {
-    int field[SIZE][SIZE];
-    int size;
+    char field[SIZE][SIZE];
 };
 
 void init_field(struct field *fld);

@@ -1,50 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "field.h"
 #include "snake.h"
+#include "draw_game.h"
 
 static struct field fld;
 static struct food fod;
-static struct snake *sn;
 
 int main()
 {
-    enum state st;
+    struct snake *sn;
+    enum state st = is_none_state;
     srand(time(NULL));
     init_field(&fld);
     init_snake(&sn);
     init_food(&fod);
+    struct move_vector mv = {0, 0};
+    fd_set rds;
 
-    int x, y;
-    for (y = 0; y < SIZE; y++)
+    char buf;
+
+    for (;;)
     {
-        for (x = 0; x < SIZE; x++)
+        draw_field(&fld, sn, &fod);
+        FD_ZERO(&rds);
+        FD_SET(0, &rds);
+        struct timeval t;
+        t.tv_sec = 1;
+        int stat = select(2, &rds, NULL, NULL, &t);
+
+        if (stat > 0)
         {
-            if (x == sn->pos.x && y == sn->pos.y)
-                printf("* ");
-            else
-                printf("  ", fld.field[y][x]);
+            stat = read(0, &buf, sizeof(buf));
+            switch (buf)
+            {
+            case 'w':
+                mv.x = 0;
+                mv.y = -1;
+                break;
+            case 's':
+                mv.x = 0;
+                mv.y = 1;
+                break;
+            case 'a':
+                mv.x = -1;
+                mv.y = 0;
+                break;
+            case 'd':
+                mv.x = 1;
+                mv.y = 0;
+                break;
+            default:
+                break;
+            }
         }
-        printf("\n");
-    }
-    struct move_vector vct = {0, 1};
-    move_snake(&sn, &vct, &fld);
-    eat_snake(&sn, &vct, &fod);
-    move_snake(&sn, &vct, &fld);
-    for (y = 0; y < SIZE; y++)
-    {
-        for (x = 0; x < SIZE; x++)
-        {
-            if (x == sn->pos.x && y == sn->pos.y)
-                printf("* ");
-            else
-                printf("  ", fld.field[y][x]);
-        }
-        printf("\n");
+
+        handle_snake(sn, &fod, &st, &mv);
+        move_snake(&sn, &mv, &fld);
+        is_food(sn, &fod, &st);
+        is_snake(sn, &st);
     }
 
-    delete_snake(&sn);
     return 0;
 }
