@@ -11,7 +11,7 @@ make main
 
 ## How to play
 
-the standard size of field is 20x20 but you can change it writing while compiling -DSIZE="own size"
+the standard size of field is 20x20 but you can change it writing while compiling in line "DEFINES" in `makefile` `-DSIZE="own size"`
 
 Here is a field
 ```
