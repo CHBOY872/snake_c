@@ -1,7 +1,9 @@
 #ifndef FIELD_H_SENTRY
 #define FIELD_H_SENTRY
 
-#define SIZE 15
+#ifndef SIZE
+#define SIZE 20
+#endif
 
 struct field
 {
